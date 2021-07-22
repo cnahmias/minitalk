@@ -54,17 +54,12 @@ PATH_SRCS = srcs
 PATH_SRCS_BONUS = srcs_bonus
 
 SRCS_SERVER += server.c
-#SRCS_SERVER += utils_server.c
 
 SRCS_CLIENT += client.c
-#SRCS_CLIENT += utils_client.c
-
 
 #SRCS_SERVER_BONUS += server_bonus.c
-#SRCS_SERVER_BONUS += utils_server_bonus.c
 
 #SRCS_CLIENT_BONUS += client_bonus.c
-#SRCS_CLIENT_BONUS += utils_client_bonus.c
 
 #vpath %.c $(PATH_SRCS_BONUS)
 vpath %.c $(PATH_SRCS)

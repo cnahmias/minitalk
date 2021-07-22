@@ -6,16 +6,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-int ft_len(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
 int		power(int i)
 {
 	int n;
@@ -47,9 +37,14 @@ void	ft_putnbr(int nb)
 
 void	ft_putstr(char *s)
 {
+	int i;
+
+	i = 0;
 	if (!s)
 		return ;
-	write(1, s, ft_len(s));
+	while (s[i] != '\0')
+		i++;
+	write(1, s, i);
 }
 
 void sig_handler(int signum)
@@ -63,6 +58,8 @@ void sig_handler(int signum)
 	if (i == 8)
 	{
 		write(1, &c, 1);
+		if (c == '\n')
+			ft_putstr("Signal received and displayed.\n");
 		i = 0;
 		c = 0;
 	}

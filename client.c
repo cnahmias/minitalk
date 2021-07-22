@@ -6,31 +6,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-
-int ft_len(char *str)
+void	ft_putstr(char *s)
 {
 	int i;
 
 	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-void	ft_putstr(char *s)
-{
 	if (!s)
 		return ;
-	write(1, s, ft_len(s));
-}
-
-void ft_error(int i)
-{
-	if (i == 1)
-		ft_putstr("incorrect pid\n");
-	else if (i == 2)
-		ft_putstr("incorrect nb of arguments\n");
-	exit(0);
+	while (s[i] != '\0')
+		i++;
+	write(1, s, i);
 }
 
 int	ft_atoi(const char *str)
@@ -43,11 +28,17 @@ int	ft_atoi(const char *str)
 	while (str[i])
 	{
 		if (str[i] > '9' || str[i] < '0')
-			ft_error(1);
+		{
+			ft_putstr("The pid is incorrect - enter an int\n");
+			exit(0);
+		}
 		else
 			tot = (tot * 10) + (str[i] - '0');
 		if (tot > 2147483647)
-			ft_error(1);
+		{
+			ft_putstr("The pid is incorrect - enter an int\n");
+			exit(0);
+		}
 		i++;
 	}
 	return (tot);
@@ -59,17 +50,18 @@ void ft_char_to_server(char c, int pid)
 
 	while (i < 8)
 	{
-		usleep(10000);
+		usleep(10);
 		if (c & 1)
-			kill(pid, SIGUSR1);//1
+			kill(pid, SIGUSR1);
 		else
-			kill(pid, SIGUSR2);//0
+			kill(pid, SIGUSR2);
 		c >>= 1;
 		i++;
+		usleep(10);
 	}
 }
 
-int	ft_string_to_server(char *str, int pid)
+void	ft_string_to_server(char *str, int pid)
 {
 	int i;
 
@@ -92,6 +84,8 @@ int main (int argc, char **argv)
 		ft_string_to_server(argv[2], pid);
 	}
 	else
-		ft_error(2);
-	return (0);
+	{
+		ft_putstr("incorrect nb of parameters\n");
+		exit(0);
+	}
 }
