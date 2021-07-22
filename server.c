@@ -1,14 +1,23 @@
-# include <unistd.h>
-# include <sys/types.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnahmias <cnahmias@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/06 16:58:52 by clbouche          #+#    #+#             */
+/*   Updated: 2021/07/08 10:06:07 by clbouche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include <unistd.h>
 # include <sys/types.h>
 # include <signal.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 int		power(int i)
 {
-	int n;
+	int	n;
 
 	n = 1;
 	while (i > 0)
@@ -47,7 +56,7 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
-void sig_handler(int signum)
+void	sig_handler(int signum)
 {
 	static char c = 0;
 	static int i = 0;
@@ -65,7 +74,7 @@ void sig_handler(int signum)
 	}
 }
 
-int main()
+int		main()
 {
 	int pid;
 

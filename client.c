@@ -1,10 +1,19 @@
-# include <unistd.h>
-# include <sys/types.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   client.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnahmias <cnahmias@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/06 16:58:52 by clbouche          #+#    #+#             */
+/*   Updated: 2021/07/08 10:06:07 by clbouche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include <unistd.h>
 # include <sys/types.h>
 # include <signal.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 void	ft_putstr(char *s)
 {
@@ -18,7 +27,7 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
-int	ft_atoi(const char *str)
+int		ft_atoi(const char *str)
 {
 	int		i;
 	long	tot;
@@ -44,7 +53,7 @@ int	ft_atoi(const char *str)
 	return (tot);
 }
 
-void ft_char_to_server(char c, int pid)
+void	ft_char_to_server(char c, int pid)
 {
 	int i = 0;
 
@@ -74,7 +83,7 @@ void	ft_string_to_server(char *str, int pid)
 	ft_char_to_server('\n', pid);
 }
 
-int main (int argc, char **argv)
+int		main (int argc, char **argv)
 {
 	int pid;
 
