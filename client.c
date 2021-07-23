@@ -10,14 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <sys/types.h>
-# include <signal.h>
-# include <stdlib.h>
+#include "minitalk.h"
 
 void	ft_putstr(char *s)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!s)
@@ -27,7 +24,7 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
-int		ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int		i;
 	long	tot;
@@ -55,8 +52,9 @@ int		ft_atoi(const char *str)
 
 void	ft_char_to_server(char c, int pid)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (i < 8)
 	{
 		usleep(10);
@@ -72,7 +70,7 @@ void	ft_char_to_server(char c, int pid)
 
 void	ft_string_to_server(char *str, int pid)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -83,9 +81,9 @@ void	ft_string_to_server(char *str, int pid)
 	ft_char_to_server('\n', pid);
 }
 
-int		main (int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	int pid;
+	int	pid;
 
 	if (argc == 3)
 	{

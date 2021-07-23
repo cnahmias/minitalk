@@ -18,7 +18,6 @@ CC = gcc
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
-#CFLAGS += -fsanitize=address
 
 ###################
 # PRINT VARIABLES #
@@ -44,7 +43,7 @@ ONELINE =\e[1A\r
 # Includes #
 ############
 
-#INCLUDES += -I /includes/minitalk.h
+INCLUDES += minitalk.h
 
 ########################
 # Sources compilations #
@@ -57,11 +56,11 @@ SRCS_SERVER += server.c
 
 SRCS_CLIENT += client.c
 
-#SRCS_SERVER_BONUS += server_bonus.c
+SRCS_SERVER_BONUS += server_bonus.c
 
-#SRCS_CLIENT_BONUS += client_bonus.c
+SRCS_CLIENT_BONUS += client.c
 
-#vpath %.c $(PATH_SRCS_BONUS)
+vpath %.c $(PATH_SRCS_BONUS)
 vpath %.c $(PATH_SRCS)
 
 ########################
@@ -72,9 +71,9 @@ PATH_OBJS = objs/
 OBJS_SERVER = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS_SERVER)) 
 OBJS_CLIENT = $(patsubst %.c, $(PATH_OBJS)%.o, $(SRCS_CLIENT))
 
-#PATH_OBJS_BONUS = objs_bonus/
-#OBJS_SERVER_BONUS = $(patsubst %.c, $(PATH_OBJS_BONUS)%.o, $(SRCS_SERVER_BONUS))
-#OBJS_CLIENT_BONUS = $(patsubst %.c, $(PATH_OBJS_BONUS)%.o, $(SRCS_CLIENT_BONUS))
+PATH_OBJS_BONUS = objs_bonus/
+OBJS_SERVER_BONUS = $(patsubst %.c, $(PATH_OBJS_BONUS)%.o, $(SRCS_SERVER_BONUS))
+OBJS_CLIENT_BONUS = $(patsubst %.c, $(PATH_OBJS_BONUS)%.o, $(SRCS_CLIENT_BONUS))
 
 #########
 # RULES #

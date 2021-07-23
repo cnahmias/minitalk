@@ -64,6 +64,8 @@ void	sig_handler(int signum)
 	if (i == 8)
 	{
 		write(1, &c, 1);
+		if (c == '\n')
+			ft_putstr("Signal received and displayed.\n");
 		i = 0;
 		c = 0;
 	}
