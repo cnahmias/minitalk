@@ -24,6 +24,13 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
+void	ft_check(int signum)
+{
+	usleep(10);
+	ft_putstr("Signal received and displayed by the server\n");
+	exit(0);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		i;
@@ -50,9 +57,26 @@ int	ft_atoi(const char *str)
 	return (tot);
 }
 
+void	ft_putnbr(int nb)
+{
+	char			c;
+
+	if (nb < 10)
+	{
+		c = nb + '0';
+		write(1, &c, 1);
+	}
+	else
+	{
+		ft_putnbr(nb / 10);
+		ft_putnbr(nb % 10);
+	}
+}
+
 void	ft_char_to_server(char c, int pid)
 {
 	int	i;
+	int j;
 
 	i = 0;
 	while (i < 8)
@@ -85,14 +109,15 @@ int	main(int argc, char **argv)
 {
 	int	pid;
 
-	if (argc == 3)
-	{
-		pid = ft_atoi(argv[1]);
-		ft_string_to_server(argv[2], pid);
-	}
-	else
+	if (argc != 3)
 	{
 		ft_putstr("incorrect nb of parameters\n");
 		exit(0);
 	}
+	pid = ft_atoi(argv[1]);
+	ft_string_to_server(argv[2], pid);
+	signal(SIGUSR1, ft_check);
+	sleep(3);
+	ft_putstr("The server did not respond...\n");
+	return (0);
 }

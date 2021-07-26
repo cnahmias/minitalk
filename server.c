@@ -53,7 +53,7 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
-void	sig_handler(int signum)
+void	sig_handler(int signum, siginfo_t *info, void *ni)
 {
 	static char	c = 0;
 	static int	i = 0;
@@ -64,23 +64,38 @@ void	sig_handler(int signum)
 	if (i == 8)
 	{
 		write(1, &c, 1);
-		i = 0;
+		if (c == 10)
+		{
+			if (kill(info->si_pid, SIGUSR1) == -1)
+			{
+				ft_putstr("Error in sending the signal\n");
+				exit(0);
+			}
+			ft_putstr("The message from client ");
+			ft_putnbr(info->si_pid);	
+			ft_putstr(" has been received and displayed.\n");
+			sleep(1);
+		}
 		c = 0;
+		i = 0;
 	}
 }
 
 int	main(void)
 {
+	struct sigaction sig;
 	int	pid;
 
 	pid = getpid();
-	ft_putstr("The PID is ");
+	ft_putstr("The PID of the server is ");
 	ft_putnbr(pid);
 	ft_putstr(".\n");
-	signal(SIGUSR1, sig_handler);
-	signal(SIGUSR2, sig_handler);
+	sig.sa_flags = SA_SIGINFO;
+	sig.sa_sigaction = sig_handler;
+	if ((sigaction(SIGUSR1, &sig, NULL) != 0) ||
+		(sigaction(SIGUSR2, &sig, NULL) != 0))
+		return (0);
 	while (1)
-	{
-	}
+		pause();
 	return (0);
 }

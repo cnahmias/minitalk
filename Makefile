@@ -18,6 +18,7 @@ CC = gcc
 CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -Werror
+#CFLAGS += -fsanitize=address
 
 ###################
 # PRINT VARIABLES #
@@ -43,7 +44,7 @@ ONELINE =\e[1A\r
 # Includes #
 ############
 
-INCLUDES += minitalk.h
+INCLUDES += -I /includes/minitalk.h
 
 ########################
 # Sources compilations #
@@ -58,7 +59,7 @@ SRCS_CLIENT += client.c
 
 SRCS_SERVER_BONUS += server_bonus.c
 
-SRCS_CLIENT_BONUS += client.c
+SRCS_CLIENT_BONUS += client_bonus.c
 
 vpath %.c $(PATH_SRCS_BONUS)
 vpath %.c $(PATH_SRCS)
