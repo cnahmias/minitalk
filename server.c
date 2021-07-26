@@ -58,6 +58,7 @@ void	sig_handler(int signum, siginfo_t *info, void *ni)
 	static char	c = 0;
 	static int	i = 0;
 
+	ft_putstr("handling signal\n");
 	if (signum == SIGUSR1)
 		c += power(i);
 	i++;
@@ -66,6 +67,7 @@ void	sig_handler(int signum, siginfo_t *info, void *ni)
 		write(1, &c, 1);
 		if (c == 10)
 		{
+			sleep(1);
 			if (kill(info->si_pid, SIGUSR1) == -1)
 			{
 				ft_putstr("Error in sending the signal\n");
@@ -79,6 +81,7 @@ void	sig_handler(int signum, siginfo_t *info, void *ni)
 		c = 0;
 		i = 0;
 	}
+	printf("i = %i\n", i);
 }
 
 int	main(void)
