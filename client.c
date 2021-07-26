@@ -24,6 +24,13 @@ void	ft_putstr(char *s)
 	write(1, s, i);
 }
 
+void	ft_check(int signum)
+{
+	sleep(1);
+	ft_putstr("Signal received and displayed by the server\n");
+	exit(0);
+}
+
 int	ft_atoi(const char *str)
 {
 	int		i;
@@ -35,14 +42,14 @@ int	ft_atoi(const char *str)
 	{
 		if (str[i] > '9' || str[i] < '0')
 		{
-			ft_putstr("The pid is incorrect - enter an int\n");
+			ft_putstr("Incorrect PID\n");
 			exit(0);
 		}
 		else
 			tot = (tot * 10) + (str[i] - '0');
 		if (tot > 2147483647)
 		{
-			ft_putstr("The pid is incorrect - enter an int\n");
+			ft_putstr("Incorrect PID\n");
 			exit(0);
 		}
 		i++;
@@ -53,6 +60,7 @@ int	ft_atoi(const char *str)
 void	ft_char_to_server(char c, int pid)
 {
 	int	i;
+	int j;
 
 	i = 0;
 	while (i < 8)
@@ -85,14 +93,15 @@ int	main(int argc, char **argv)
 {
 	int	pid;
 
-	if (argc == 3)
+	if (argc != 3)
 	{
-		pid = ft_atoi(argv[1]);
-		ft_string_to_server(argv[2], pid);
-	}
-	else
-	{
-		ft_putstr("incorrect nb of parameters\n");
+		ft_putstr("Please enter PID & string\n");
 		exit(0);
 	}
+	pid = ft_atoi(argv[1]);
+	ft_string_to_server(argv[2], pid);
+	signal(SIGUSR1, ft_check);
+	sleep(1);
+	ft_putstr("The server did not respond...\n");
+	return (0);
 }
